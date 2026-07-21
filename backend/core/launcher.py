@@ -24,7 +24,10 @@ def open_app(command: str):
 
                 subprocess.Popen([executable])
 
-                return f"Opening {app}."
+                return {
+                    "message": f"Opening {app}.",
+                    "app": app
+                }
 
             except Exception as e:
 

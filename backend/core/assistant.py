@@ -1,6 +1,9 @@
 from core.speech import speak, listen
 from core.brain import Brain
 from core.router import execute
+from core.memory import Memory
+
+memory = Memory()
 
 
 brain = Brain()
@@ -13,6 +16,8 @@ def start():
     while True:
 
         command = listen()
+        
+        memory.remember_command(command)
 
         if not command:
             continue
