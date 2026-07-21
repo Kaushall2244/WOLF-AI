@@ -10,7 +10,8 @@ class SkillManager:
         intent = result["intent"]
 
         if intent == "OPEN_APP":
-            return apps.execute(result["command"])
+            response = apps.execute(result["command"])
+            return response
 
         if intent == "SYSTEM_INFO":
             return system.execute(result["command"])
