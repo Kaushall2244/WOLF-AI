@@ -1,0 +1,23 @@
+{
+    "assistant_name": "WOLF",
+    "wake_word": "wolf",
+
+    "voice": {
+        "enabled": true,
+        "rate": 170,
+        "volume": 1.0
+    },
+
+    "speech": {
+        "enabled": true,
+        "timeout": 5
+    },
+
+    "theme": "dark",
+
+    "language": "en",
+
+    "logging": true,
+
+    "developer_mode": true
+}

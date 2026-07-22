@@ -2,27 +2,41 @@ from core.speech import speak, listen
 from core.brain import Brain
 from core.router import execute
 from core.memory import Memory
+from core.config import config
+from core.logger import logger
 
 memory = Memory()
-
-
 brain = Brain()
 
 
 def start():
 
-    speak("WOLF Online.")
+    logger.log("INFO", "Assistant Started")
+
+    speak(f"{config.get('assistant_name')} Online.")
 
     while True:
 
         command = listen()
+
+        command = listen()
+
+        logger.log("USER", command)
         
-        memory.remember_command(command)
+        result = brain.analyze(command)
+        
+        logger.log("INTENT", result["intent"])
+        
+        response = execute(result)
+        
+        logger.log("WOLF", response)
 
         if not command:
             continue
 
-        print(f"\nYOU : {command}")
+        memory.remember_command(command)
+
+        print(f"\nYOU  : {command}")
 
         result = brain.analyze(command)
 
@@ -30,7 +44,7 @@ def start():
 
         response = execute(result)
 
-        print(f"WOLF : {response}")
+        print(f"{config.get('assistant_name')} : {response}")
 
         speak(response)
 

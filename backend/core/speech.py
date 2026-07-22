@@ -1,17 +1,28 @@
 import speech_recognition as sr
 import pyttsx3
 
+from core.config import config
+
 recognizer = sr.Recognizer()
 
 engine = pyttsx3.init()
 
+engine.setProperty(
+    "rate",
+    config.get("voice.rate", 170)
+)
+
+engine.setProperty(
+    "volume",
+    config.get("voice.volume", 1.0)
+)
+
 
 def speak(text):
 
-    print(f"\n[JARVIS] {text}")
+    print(f"\n[{config.get('assistant_name')}] {text}")
 
     engine.say(text)
-
     engine.runAndWait()
 
 
@@ -29,7 +40,7 @@ def listen():
 
         command = recognizer.recognize_google(audio)
 
-        print(f"[USER] {command}")
+        print(f"[YOU] {command}")
 
         return command.lower()
 
