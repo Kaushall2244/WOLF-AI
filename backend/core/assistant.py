@@ -8,7 +8,6 @@ from core.logger import logger
 memory = Memory()
 brain = Brain()
 
-
 def start():
 
     logger.log("INFO", "Assistant Started")

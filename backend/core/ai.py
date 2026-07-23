@@ -1,28 +1,47 @@
-import ollama
+import requests
 
 
 class AI:
 
-    def ask(self, prompt: str):
+    def __init__(self):
+        self.url = "http://localhost:11434/api/generate"
+        self.model = "gemma3:4b"
 
-        response = ollama.chat(
+    def ask(self, prompt):
 
-            model="gemma3:4b",
+        prompt = f"""
+        You are WOLF.
+        
+        You are a futuristic Linux AI operating system.
+        
+        Be concise.
+        Be friendly.
+        Answer in under 4 sentences.
+        Never mention you are ChatGPT.
+        Always refer to yourself as WOLF.
+        
+        User:
+        {prompt}
+        """
 
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are WOLF, an intelligent Linux desktop assistant. "
-                        "Be friendly, concise, and helpful."
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": prompt
+        try:
+
+            response = requests.post(
+
+                self.url,
+
+                json={
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False
                 }
-            ]
 
-        )
+            )
 
-        return response["message"]["content"]
+            data = response.json()
+
+            return data["response"]
+
+        except Exception:
+
+            return "I couldn't reach my AI brain."

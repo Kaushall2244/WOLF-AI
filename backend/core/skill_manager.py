@@ -1,6 +1,7 @@
 from core.skills import apps
 from core.skills import system
 from core.skills import chat
+from core.chat import chat
 
 
 class SkillManager:
@@ -27,4 +28,4 @@ class SkillManager:
         if intent == "EXIT":
             return "Goodbye."
 
-        return "I don't understand."
+        return chat(result["command"])
