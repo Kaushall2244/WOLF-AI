@@ -109,23 +109,38 @@ class Brain:
         # -----------------------
         # Save User Name
         # -----------------------
-        
+
         if "my name is" in command:
         
             return {
                 "intent": "SAVE_NAME",
                 "name": command.replace("my name is", "").strip()
             }
-        
-        
+
+
         # -----------------------
         # Get User Name
         # -----------------------
-        
+
         if "what is my name" in command or "who am i" in command:
         
             return {
                 "intent": "GET_NAME"
+            }
+
+        # ----------------------------
+        # SCREENSHOT
+        # ----------------------------
+
+        if any(word in command for word in [
+            "screen",
+            "screenshot",
+            "what is on my screen",
+            "look at my screen",
+            "analyze screen",
+        ]):
+            return {
+                "intent": "VISION"
             }
 
         # ----------------------------

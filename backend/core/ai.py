@@ -1,35 +1,67 @@
 import ollama
+from core.profile import Profile
+
+profile = Profile()
 
 
 class AI:
 
     def __init__(self):
+
         self.model = "gemma3:4b"
 
-    def ask(self, prompt: str):
+    def ask(self, prompt):
 
-        try:
+        name = profile.get("name") or "User"
 
-            response = ollama.chat(
-                model=self.model,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": (
-                            "You are WOLF, an intelligent offline AI assistant created by Wolfii. "
-                            "You run on Linux and help with programming, automation, engineering, gaming, and daily tasks. "
-                            "Be confident, concise, and conversational. "
-                            "If you don't know something, say so instead of making it up."
-                        )
-                    },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ]
-            )
+        system_prompt = f"""
+You are WOLF.
 
-            return response["message"]["content"]
+You are an offline Linux AI assistant created by Wolfii.
 
-        except Exception as e:
-            return f"AI Error: {e}"
+The user's name is {name}.
+
+Be concise and helpful.
+"""
+
+        response = ollama.chat(
+
+            model=self.model,
+
+            messages=[
+
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+
+            ]
+
+        )
+
+        return response["message"]["content"]
+
+    def vision(self, image_path, prompt):
+
+        response = ollama.chat(
+
+            model=self.model,
+
+            messages=[
+
+                {
+                    "role": "user",
+                    "content": prompt,
+                    "images": [image_path]
+                }
+
+            ]
+
+        )
+
+        return response["message"]["content"]
