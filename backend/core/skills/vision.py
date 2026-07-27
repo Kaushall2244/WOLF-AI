@@ -1,15 +1,13 @@
 from vision.screenshot import Screenshot
+
 from core.ai import AI
 
-camera = Screenshot()
+shot = Screenshot()
 ai = AI()
 
 
-def execute():
+def execute(prompt):
 
-    image = camera.capture()
+    image = shot.capture()
 
-    return ai.vision(
-        image,
-        "Describe everything visible on this screen."
-    )
+    return ai.vision(image, prompt)

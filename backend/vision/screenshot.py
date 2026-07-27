@@ -6,15 +6,14 @@ class Screenshot:
 
     def capture(self):
 
-        output = Path("screen.png")
+        output = Path(__file__).parent.parent / "screen.png"
 
-        try:
-            subprocess.run(
-                ["grim", str(output)],
-                check=True
-            )
+        subprocess.run(
+            [
+                "grim",
+                str(output)
+            ],
+            check=True
+        )
 
-            return str(output)
-
-        except Exception as e:  # noqa: BLE001
-            return f"Screenshot failed: {e}"
+        return str(output.resolve())
