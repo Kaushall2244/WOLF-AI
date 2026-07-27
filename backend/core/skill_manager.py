@@ -1,7 +1,10 @@
+from automation.automation import Automation
+
 from core.ai import AI
 from core.profile import Profile
 from core.skills import apps, chat, system, vision
 
+automation = Automation()
 ai = AI()
 profile = Profile()
 
@@ -71,6 +74,13 @@ class SkillManager:
 
         elif intent == "VISION":
             return vision.execute(result["command"])
+
+        # --------------------------
+        # AUTOMATION
+        # --------------------------
+
+        elif intent == "AUTOMATION":
+            return automation.execute(result["command"])
 
         # -------------------------
         # Default

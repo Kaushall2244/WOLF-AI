@@ -172,6 +172,23 @@ class Brain:
         ):
             return {"intent": "VISION", "command": command}
 
+
+        # ----------------------------
+        # AUTOMATION
+        # ----------------------------
+        if any(word in command for word in [
+            "click",
+            "double click",
+            "right click",
+            "scroll",
+            "type",
+            "press enter",
+        ]):
+            return {
+                "intent": "AUTOMATION",
+                "command": command
+            }
+        
         # ----------------------------
         # UNKNOWN
         # ----------------------------
