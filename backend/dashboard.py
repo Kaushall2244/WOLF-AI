@@ -8,6 +8,7 @@ import shutil
 import socket
 import psutil
 import time
+import os
 
 def cpu_panel():
 
@@ -37,13 +38,14 @@ def ram_panel():
 
 def disk_panel():
 
-    disk = shutil.disk_usage("/")
+    root_path = os.path.abspath(os.sep)
+    disk = shutil.disk_usage(root_path)
 
-    used = disk.used/(1024**3)
+    used = disk.used / (1024**3)
 
-    total = disk.total/(1024**3)
+    total = disk.total / (1024**3)
 
-    percent = used/total*100
+    percent = (used / total) * 100
 
     return Panel(
         Group(

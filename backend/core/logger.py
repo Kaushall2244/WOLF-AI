@@ -9,6 +9,7 @@ class Logger:
         project_root = Path(__file__).resolve().parents[2]
 
         self.logfile = project_root / "logs" / "wolf.log"
+        self.logfile.parent.mkdir(parents=True, exist_ok=True)
 
     def log(self, level: str, message: str):
 

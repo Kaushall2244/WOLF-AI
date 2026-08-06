@@ -15,9 +15,9 @@ class AI:
 
             system_prompt = f"""
 You are WOLF.
-You are an offline Linux AI assistant created by Wolfii.
+You are an offline AI assistant and desktop companion.
 The user's name is {name}.
-Be concise and helpful.
+Be concise, smart, direct, and helpful.
 """
 
             response = ollama.chat(
@@ -30,8 +30,8 @@ Be concise and helpful.
 
             return response["message"]["content"]
 
-        except Exception as e:  # noqa: BLE001
-            return f"AI Error: {e}"
+        except Exception as e:
+            return f"[Ollama AI Offline/Error]: {e}. Please ensure Ollama is installed and running with model '{self.model}'."
 
     def vision(self, image_path, prompt):
         try:
@@ -48,5 +48,6 @@ Be concise and helpful.
 
             return response["message"]["content"]
 
-        except Exception as e:  # noqa: BLE001
-            return f"Vision Error: {e}"
+        except Exception as e:
+            return f"[Vision Error]: {e}. Make sure Ollama vision model is available."
+

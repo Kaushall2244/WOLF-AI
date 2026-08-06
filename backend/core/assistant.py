@@ -11,41 +11,28 @@ brain = Brain()
 def start():
 
     logger.log("INFO", "Assistant Started")
+    assistant_name = config.get("assistant_name", "WOLF")
 
-    speak(f"{config.get('assistant_name')} Online.")
+    speak(f"{assistant_name} Online.")
 
     while True:
-
         command = listen()
-
-        command = listen()
-
-        logger.log("USER", command)
-        
-        result = brain.analyze(command)
-        
-        logger.log("INTENT", result["intent"])
-        
-        response = execute(result)
-        
-        logger.log("WOLF", response)
 
         if not command:
             continue
 
+        logger.log("USER", command)
+        
+        result = brain.analyze(command)
+        logger.log("INTENT", result.get("intent", "UNKNOWN"))
+        
         memory.remember_command(command)
 
-        print(f"\nYOU  : {command}")
-
-        result = brain.analyze(command)
-
-        print(result)
-
         response = execute(result)
+        logger.log("WOLF", str(response))
 
-        print(f"{config.get('assistant_name')} : {response}")
+        print(f"\n{assistant_name} : {response}")
+        speak(str(response))
 
-        speak(response)
-
-        if result["intent"] == "EXIT":
+        if result.get("intent") == "EXIT":
             break

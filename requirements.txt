@@ -11,3 +11,11 @@ rich==15.0.0
 shellingham==1.5.4
 typer==0.27.0
 urllib3==2.7.0
+mss
+pyttsx3
+SpeechRecognition
+pyautogui
+pyperclip
+pillow
+ollama
+

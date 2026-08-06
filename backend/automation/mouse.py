@@ -1,64 +1,60 @@
+import shutil
 import subprocess
+import pyautogui
+
+pyautogui.FAILSAFE = False
 
 
 def click():
-
-    subprocess.run(
-        [
-            "ydotool",
-            "click",
-            "0xC0"
-        ]
-    )
+    if shutil.which("ydotool"):
+        try:
+            subprocess.run(["ydotool", "click", "0xC0"])
+            return
+        except Exception:
+            pass
+    pyautogui.click()
 
 
 def double_click():
-
     click()
     click()
 
 
 def right_click():
-
-    subprocess.run(
-        [
-            "ydotool",
-            "click",
-            "0xC1"
-        ]
-    )
-
-
-def scroll_up():
-
-    subprocess.run(
-        [
-            "ydotool",
-            "click",
-            "0x900"
-        ]
-    )
+    if shutil.which("ydotool"):
+        try:
+            subprocess.run(["ydotool", "click", "0xC1"])
+            return
+        except Exception:
+            pass
+    pyautogui.rightClick()
 
 
-def scroll_down():
+def scroll_up(clicks: int = 5):
+    if shutil.which("ydotool"):
+        try:
+            subprocess.run(["ydotool", "click", "0x900"])
+            return
+        except Exception:
+            pass
+    pyautogui.scroll(clicks * 100)
 
-    subprocess.run(
-        [
-            "ydotool",
-            "click",
-            "0x901"
-        ]
-    )
+
+def scroll_down(clicks: int = 5):
+    if shutil.which("ydotool"):
+        try:
+            subprocess.run(["ydotool", "click", "0x901"])
+            return
+        except Exception:
+            pass
+    pyautogui.scroll(-clicks * 100)
 
 
 def move(x: int, y: int):
-
-    subprocess.run(
-        [
-            "ydotool",
-            "mousemove",
-            "--absolute",
-            str(x),
-            str(y)
-        ]
-    )
+    if shutil.which("ydotool"):
+        try:
+            subprocess.run(["ydotool", "mousemove", "--absolute", str(x), str(y)])
+            return
+        except Exception:
+            pass
+    pyautogui.moveTo(x, y)
